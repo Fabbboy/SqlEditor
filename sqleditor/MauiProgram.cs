@@ -13,6 +13,8 @@ namespace sqleditor
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Geist-Regular.ttf", "GeistRegular");
+                    fonts.AddFont("Geist-SemiBold.ttf", "GeistSemiBold");
                 });
 
 #if DEBUG
