@@ -72,6 +72,7 @@ namespace sqleditor
             try
             {
                 GlobalDatabase.OpenDatabase(FilePath);
+                await Shell.Current.GoToAsync("///Editor");
             }
             catch (Exception ex)
             {
