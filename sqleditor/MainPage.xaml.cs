@@ -35,6 +35,7 @@ namespace sqleditor
         {
             InitializeComponent();
             BindingContext = this;
+            _filePath = string.Empty;
         }
 
         private async void OnBrowseClicked(object sender, EventArgs e)
@@ -70,10 +71,7 @@ namespace sqleditor
             }
             try
             {
-                using var stream = File.OpenRead(FilePath);
-                using var reader = new StreamReader(stream);
-                var text = await reader.ReadToEndAsync();
-                await DisplayAlert("File Content", text, "OK");
+                GlobalDatabase.OpenDatabase(FilePath);
             }
             catch (Exception ex)
             {
