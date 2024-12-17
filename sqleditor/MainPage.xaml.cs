@@ -1,10 +1,27 @@
-﻿using CommunityToolkit.Maui.Storage; 
+﻿using System.ComponentModel;
+using CommunityToolkit.Maui.Storage; 
 using Microsoft.Maui.Controls;
 
 namespace sqleditor
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
+        private string _filePath;
+
+        public string FilePath
+        {
+            get => _filePath;
+            set
+            {
+                if (_filePath != value)
+                {
+                    _filePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         static Dictionary<DevicePlatform, IEnumerable<string>> customFileTypeDictionary = new()
             {
                 { DevicePlatform.iOS, new[] { "public.database" } }, // UTType for SQLite on iOS
@@ -17,6 +34,7 @@ namespace sqleditor
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
         }
 
         private async void OnBrowseClicked(object sender, EventArgs e)
@@ -31,8 +49,8 @@ namespace sqleditor
 
                 if (result != null)
                 {
-                    // Set the selected file path in the Entry
-                    FilePathEntry.Text = result.FullPath;
+                   // FilePathEntry.Text = result.FullPath;
+                   FilePath = result.FullPath;
                 }
             }
             catch (Exception ex)
@@ -42,5 +60,25 @@ namespace sqleditor
             }
         }
 
+
+        private async void OnConnectClicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(FilePath))
+            {
+                await DisplayAlert("Error", "Please select a file first", "OK");
+                return;
+            }
+            try
+            {
+                using var stream = File.OpenRead(FilePath);
+                using var reader = new StreamReader(stream);
+                var text = await reader.ReadToEndAsync();
+                await DisplayAlert("File Content", text, "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
+        }
     }
 }

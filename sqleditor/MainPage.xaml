@@ -2,39 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="sqleditor.MainPage"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             BackgroundColor="Transparent">
+             BackgroundColor="{StaticResource TailwindNeutral900}">
 
     <Grid VerticalOptions="Center" HorizontalOptions="Center">
         <Frame BackgroundColor="{StaticResource TailwindNeutral800WithOpacity60}"
-               CornerRadius="15"
+               CornerRadius="20"
                HasShadow="True"
                WidthRequest="400"
-               HeightRequest="450">
-            <VerticalStackLayout Spacing="20" VerticalOptions="CenterAndExpand">
-                <!-- Horizontal layout with Entry and Button -->
-                <HorizontalStackLayout Spacing="10"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="FillAndExpand">
-                    <!-- Input Field for File Path -->
-                    <Entry x:Name="FilePathEntry"
+               HeightRequest="450"
+               Padding="25">
+            <VerticalStackLayout Spacing="30" HorizontalOptions="Center" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="5" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="logo.png"
+                       HeightRequest="96"
+                       WidthRequest="96"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,10"/>
+                    <Label Text="Welcome to"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           TextColor="White"/>
+                    <Label Text="SQL Editor"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           TextColor="White"/>
+                </VerticalStackLayout> 
+               
+
+                <!-- File Picker Input -->
+                <FlexLayout Direction="Row"
+                            JustifyContent="SpaceBetween"
+                            AlignItems="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="FillAndExpand">
+                    <Entry Text="{Binding FilePath, Mode=TwoWay}"
                            Placeholder="Enter file path"
                            VerticalOptions="Center"
-                           HorizontalOptions="FillAndExpand"
                            HeightRequest="40"
                            BackgroundColor="{StaticResource TailwindNeutral700}"
                            TextColor="White"
-                           Margin="0,0,10,0" />
+                           Margin="0"
+                            FlexLayout.Grow="1"
+                           StyleId="flexGrow"/>
 
-                    <!-- Button to Open File Explorer -->
                     <Button Text="Browse"
                             VerticalOptions="Center"
                             HeightRequest="40"
-                            WidthRequest="80"
                             BackgroundColor="{StaticResource TailwindNeutral600}"
                             TextColor="White"
-                            Clicked="OnBrowseClicked" />
-                </HorizontalStackLayout>
+                            CornerRadius="8"
+                            Clicked="OnBrowseClicked"
+                            Margin="10,0,0,0"/>
+                </FlexLayout>
+
+                <!-- Connect Button -->
+                <Button Text="Connect" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Fill"
+                        HeightRequest="45"
+                        BackgroundColor="{StaticResource TailwindNeutral500}"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        Clicked="OnConnectClicked" />
             </VerticalStackLayout>
         </Frame>
     </Grid>
