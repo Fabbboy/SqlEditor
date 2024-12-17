@@ -2,106 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="sqleditor.MainPage"
-             Background="{StaticResource BackgroundGradient}">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="Transparent">
 
-    <Grid Padding="20">
-        <!-- Main Grid -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Frame BackgroundColor="{StaticResource TailwindNeutral800WithOpacity60}"
+               CornerRadius="15"
+               HasShadow="True"
+               WidthRequest="400"
+               HeightRequest="450">
+            <VerticalStackLayout Spacing="20" VerticalOptions="CenterAndExpand">
+                <!-- Horizontal layout with Entry and Button -->
+                <HorizontalStackLayout Spacing="10"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="FillAndExpand">
+                    <!-- Input Field for File Path -->
+                    <Entry x:Name="FilePathEntry"
+                           Placeholder="Enter file path"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"
+                           HeightRequest="40"
+                           BackgroundColor="{StaticResource TailwindNeutral700}"
+                           TextColor="White"
+                           Margin="0,0,10,0" />
 
-        <!-- Login Card -->
-        <Frame
-            Grid.Row="1"
-            Grid.Column="1"
-            BackgroundColor="{StaticResource TailwindNeutral800}"
-            CornerRadius="16"
-            Padding="20"
-            HasShadow="True"
-            Margin="20"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            WidthRequest="400"
-            HeightRequest="300">
-
-            <VerticalStackLayout Spacing="20" VerticalOptions="Center">
-                <!-- Icon -->
-                <Image
-                    Source="logo.png"
-                    HeightRequest="80"
-                    HorizontalOptions="Center" />
-
-                <!-- Title -->
-                <Label
-                    Text="SqlEditor"
-                    FontSize="24"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource TailwindNeutral100}"
-                    HorizontalOptions="Center" />
-
-                <!-- Subtitle -->
-                <Label
-                    Text="Welcome to the SqlEditor Login"
-                    FontSize="14"
-                    TextColor="{StaticResource TailwindNeutral500}"
-                    HorizontalOptions="Center" />
-
-                <!-- Input Fields -->
-                <VerticalStackLayout Spacing="10">
-                    <!-- DB URL Entry -->
-                    <Frame BackgroundColor="{StaticResource TailwindNeutral700}"
-                           CornerRadius="8"
-                           Padding="8"
-                           HasShadow="False">
-                        <Entry
-                            Placeholder="DB URL"
-                            BackgroundColor="Transparent"
-                            TextColor="{StaticResource TailwindNeutral100}"
-                            PlaceholderColor="{StaticResource TailwindNeutral400}" />
-                    </Frame>
-
-                    <!-- Username Entry -->
-                    <Frame BackgroundColor="{StaticResource TailwindNeutral700}"
-                           CornerRadius="8"
-                           Padding="8"
-                           HasShadow="False">
-                        <Entry
-                            Placeholder="Username"
-                            BackgroundColor="Transparent"
-                            TextColor="{StaticResource TailwindNeutral100}"
-                            PlaceholderColor="{StaticResource TailwindNeutral400}" />
-                    </Frame>
-
-                    <!-- Password Entry -->
-                    <Frame BackgroundColor="{StaticResource TailwindNeutral700}"
-                           CornerRadius="8"
-                           Padding="8"
-                           HasShadow="False">
-                        <Entry
-                            Placeholder="Password"
-                            IsPassword="True"
-                            BackgroundColor="Transparent"
-                            TextColor="{StaticResource TailwindNeutral100}"
-                            PlaceholderColor="{StaticResource TailwindNeutral400}" />
-                    </Frame>
-                </VerticalStackLayout>
-
-                <!-- Connect Button -->
-                <Button
-                    Text="Connect"
-                    BackgroundColor="#007BFF"
-                    TextColor="White"
-                    CornerRadius="8"
-                    HeightRequest="45"
-                    HorizontalOptions="Fill"
-                    FontAttributes="Bold" />
+                    <!-- Button to Open File Explorer -->
+                    <Button Text="Browse"
+                            VerticalOptions="Center"
+                            HeightRequest="40"
+                            WidthRequest="80"
+                            BackgroundColor="{StaticResource TailwindNeutral600}"
+                            TextColor="White"
+                            Clicked="OnBrowseClicked" />
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </Frame>
     </Grid>
