@@ -4,4 +4,21 @@
              x:Class="sqleditor.Views.MainEditor"
              BackgroundColor="{StaticResource TailwindNeutral900}">
 
+    <Grid Padding="10" RowDefinitions="Auto" ColumnDefinitions="200, *">
+        <!-- Left Menu -->
+        <VerticalStackLayout BackgroundColor="{StaticResource TailwindNeutral800}" Padding="10">
+            <Label Text="Menu Item 1" TextColor="White" FontSize="16" Margin="0,10" />
+            <Label Text="Menu Item 2" TextColor="White" FontSize="16" Margin="0,10" />
+            <Label Text="Menu Item 3" TextColor="White" FontSize="16" Margin="0,10" />
+        </VerticalStackLayout>
+
+        <!-- Right Content Area -->
+        <Frame Grid.Column="1"
+               BackgroundColor="{StaticResource TailwindNeutral700}"
+               CornerRadius="10"
+               HasShadow="True"
+               Padding="15">
+            <Label Text="Main Content" TextColor="White" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Frame>
+    </Grid>
 </ContentPage>

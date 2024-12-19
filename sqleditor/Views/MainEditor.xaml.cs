@@ -1,6 +1,12 @@
-﻿namespace sqleditor.Views.Editor
+﻿using Microsoft.Maui.Controls;
+
+namespace sqleditor.Views
 {
-    internal class MainEditor
+    public partial class MainEditor : ContentPage
     {
+        public MainEditor()
+        {
+            InitializeComponent();
+        }
     }
 }
