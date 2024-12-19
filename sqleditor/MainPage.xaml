@@ -11,54 +11,72 @@
                WidthRequest="400"
                HeightRequest="450"
                Padding="25">
-            <VerticalStackLayout Spacing="30" HorizontalOptions="Center" VerticalOptions="Center">
-                <VerticalStackLayout Spacing="5" HorizontalOptions="Center" VerticalOptions="Center">
+            <VerticalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <!-- Logo and Title -->
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
                     <Image Source="logo.png"
-                       HeightRequest="96"
-                       WidthRequest="96"
-                       HorizontalOptions="Center"
-                       Margin="0,0,0,10"/>
+                           HeightRequest="84"
+                           WidthRequest="84"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,10"/>
                     <Label Text="Welcome to"
-                           FontSize="20"
+                           FontSize="16"
                            FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            TextColor="White"/>
                     <Label Text="SQL Editor"
-                           FontSize="28"
+                           FontSize="20"
                            FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            TextColor="White"/>
-                </VerticalStackLayout> 
-               
+                </VerticalStackLayout>
 
                 <!-- File Picker Input -->
-                <FlexLayout Direction="Row"
-                            JustifyContent="SpaceBetween"
-                            AlignItems="Center"
-                            VerticalOptions="Center"
-                            HorizontalOptions="FillAndExpand">
-                    <Entry Text="{Binding FilePath, Mode=TwoWay}"
-                           Placeholder="Enter file path"
+                <VerticalStackLayout Spacing="15" HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions="*, Auto" HorizontalOptions="FillAndExpand">
+                        <!-- Input Field -->
+                        <Entry Grid.Column="0"
+                               Text="{Binding FilePath, Mode=TwoWay}"
+                               Placeholder="Enter file path"
+                               VerticalOptions="Center"
+                               HeightRequest="40"
+                               BackgroundColor="{StaticResource TailwindNeutral700}"
+                               TextColor="White"
+                               Margin="0,0,10,0"
+                               HorizontalOptions="FillAndExpand"/>
+                        <!-- Browse Button -->
+                        <Button Grid.Column="1"
+                                Text="Browse"
+                                VerticalOptions="Center"
+                                HeightRequest="40"
+                                BackgroundColor="{StaticResource TailwindNeutral600}"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnBrowseClicked"/>
+                    </Grid>
+
+                    <!-- Username Field -->
+                    <Entry Text="{Binding Username, Mode=TwoWay}"
+                           Placeholder="Enter Username"
                            VerticalOptions="Center"
                            HeightRequest="40"
                            BackgroundColor="{StaticResource TailwindNeutral700}"
                            TextColor="White"
                            Margin="0"
-                            FlexLayout.Grow="1"
-                           StyleId="flexGrow"/>
-
-                    <Button Text="Browse"
-                            VerticalOptions="Center"
-                            HeightRequest="40"
-                            BackgroundColor="{StaticResource TailwindNeutral600}"
-                            TextColor="White"
-                            CornerRadius="8"
-                            Clicked="OnBrowseClicked"
-                            Margin="10,0,0,0"/>
-                </FlexLayout>
+                           HorizontalOptions="FillAndExpand"/>
+                    <!-- Password Field -->
+                    <Entry Text="{Binding Password, Mode=TwoWay}"
+                           Placeholder="Enter Password"
+                           VerticalOptions="Center"
+                           HeightRequest="40"
+                           BackgroundColor="{StaticResource TailwindNeutral700}"
+                           TextColor="White"
+                           Margin="0"
+                           HorizontalOptions="FillAndExpand"/>
+                </VerticalStackLayout>
 
                 <!-- Connect Button -->
-                <Button Text="Connect" 
+                <Button Text="Connect"
                         VerticalOptions="Center"
                         HorizontalOptions="Fill"
                         HeightRequest="45"
@@ -66,7 +84,7 @@
                         TextColor="White"
                         FontAttributes="Bold"
                         CornerRadius="10"
-                        Clicked="OnConnectClicked" />
+                        Clicked="OnConnectClicked"/>
             </VerticalStackLayout>
         </Frame>
     </Grid>

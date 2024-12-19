@@ -7,6 +7,8 @@ namespace sqleditor
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         private string _filePath;
+        private string _username;
+        private string _password;
 
         public string FilePath
         {
@@ -16,6 +18,33 @@ namespace sqleditor
                 if (_filePath != value)
                 {
                     _filePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (_username != value)
+                {
+                    _username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (value != _password)
+                {
+                    _password = value;
                     OnPropertyChanged();
                 }
             }
@@ -71,7 +100,7 @@ namespace sqleditor
             }
             try
             {
-                GlobalDatabase.OpenDatabase(FilePath);
+                GlobalDatabase.OpenDatabase(FilePath, Username, Password);
                 await Shell.Current.GoToAsync("///Editor");
             }
             catch (Exception ex)
