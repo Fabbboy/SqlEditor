@@ -4,88 +4,103 @@
              x:Class="sqleditor.MainPage"
              BackgroundColor="{StaticResource TailwindNeutral900}">
 
-    <Grid VerticalOptions="Center" HorizontalOptions="Center">
-        <Frame BackgroundColor="{StaticResource TailwindNeutral800WithOpacity60}"
-               CornerRadius="20"
-               HasShadow="True"
-               WidthRequest="400"
-               HeightRequest="450"
-               Padding="25">
-            <VerticalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-                <!-- Logo and Title -->
-                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                    <Image Source="logo.png"
-                           HeightRequest="84"
-                           WidthRequest="84"
-                           HorizontalOptions="Center"
-                           Margin="0,0,0,10"/>
-                    <Label Text="Welcome to"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="Center"
-                           TextColor="White"/>
-                    <Label Text="SQL Editor"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="Center"
-                           TextColor="White"/>
-                </VerticalStackLayout>
+    <ScrollView>
+        <Grid VerticalOptions="Center" HorizontalOptions="Center" Padding="10">
+            <Frame BackgroundColor="{StaticResource TailwindNeutral800WithOpacity60}"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   WidthRequest="400"
+                   Padding="25">
+                <VerticalStackLayout Spacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <!-- Logo and Title -->
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                        <Image Source="logo.png"
+                               HeightRequest="84"
+                               WidthRequest="84"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,10"/>
+                        <Label Text="Welcome to"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               TextColor="White"/>
+                        <Label Text="SQL Editor"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               TextColor="White"/>
+                    </VerticalStackLayout>
 
-                <!-- File Picker Input -->
-                <VerticalStackLayout Spacing="15" HorizontalOptions="FillAndExpand">
-                    <Grid ColumnDefinitions="*, Auto" HorizontalOptions="FillAndExpand">
-                        <!-- Input Field -->
-                        <Entry Grid.Column="0"
-                               Text="{Binding FilePath, Mode=TwoWay}"
-                               Placeholder="Enter file path"
+                    <!-- File Picker Input -->
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="FillAndExpand">
+                        <Grid ColumnDefinitions="*, Auto" HorizontalOptions="FillAndExpand">
+                            <Entry Grid.Column="0"
+                                   Text="{Binding FilePath, Mode=TwoWay}"
+                                   Placeholder="Enter file path"
+                                   VerticalOptions="Center"
+                                   HeightRequest="40"
+                                   BackgroundColor="{StaticResource TailwindNeutral700}"
+                                   TextColor="White"
+                                   Margin="0,0,10,0"
+                                   HorizontalOptions="FillAndExpand"/>
+                            <Button Grid.Column="1"
+                                    Text="Browse"
+                                    VerticalOptions="Center"
+                                    HeightRequest="40"
+                                    BackgroundColor="{StaticResource TailwindNeutral600}"
+                                    TextColor="White"
+                                    CornerRadius="8"
+                                    Clicked="OnBrowseClicked"/>
+                        </Grid>
+                        <Label Text="{Binding FilePathError}"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsFilePathInvalid}" />
+                    </VerticalStackLayout>
+
+                    <!-- Username Field -->
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="FillAndExpand">
+                        <Entry Text="{Binding Username, Mode=TwoWay}"
+                               Placeholder="Enter Username"
                                VerticalOptions="Center"
                                HeightRequest="40"
                                BackgroundColor="{StaticResource TailwindNeutral700}"
                                TextColor="White"
-                               Margin="0,0,10,0"
                                HorizontalOptions="FillAndExpand"/>
-                        <!-- Browse Button -->
-                        <Button Grid.Column="1"
-                                Text="Browse"
-                                VerticalOptions="Center"
-                                HeightRequest="40"
-                                BackgroundColor="{StaticResource TailwindNeutral600}"
-                                TextColor="White"
-                                CornerRadius="8"
-                                Clicked="OnBrowseClicked"/>
-                    </Grid>
+                        <Label Text="{Binding UsernameError}"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsUsernameInvalid}" />
+                    </VerticalStackLayout>
 
-                    <!-- Username Field -->
-                    <Entry Text="{Binding Username, Mode=TwoWay}"
-                           Placeholder="Enter Username"
-                           VerticalOptions="Center"
-                           HeightRequest="40"
-                           BackgroundColor="{StaticResource TailwindNeutral700}"
-                           TextColor="White"
-                           Margin="0"
-                           HorizontalOptions="FillAndExpand"/>
                     <!-- Password Field -->
-                    <Entry Text="{Binding Password, Mode=TwoWay}"
-                           Placeholder="Enter Password"
-                           VerticalOptions="Center"
-                           HeightRequest="40"
-                           BackgroundColor="{StaticResource TailwindNeutral700}"
-                           TextColor="White"
-                           Margin="0"
-                           HorizontalOptions="FillAndExpand"/>
-                </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="FillAndExpand">
+                        <Entry Text="{Binding Password, Mode=TwoWay}"
+                               Placeholder="Enter Password"
+                               VerticalOptions="Center"
+                               HeightRequest="40"
+                               BackgroundColor="{StaticResource TailwindNeutral700}"
+                               TextColor="White"
+                               IsPassword="True"
+                               HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding PasswordError}"
+                               TextColor="Red"
+                               FontSize="12"
+                               IsVisible="{Binding IsPasswordInvalid}" />
+                    </VerticalStackLayout>
 
-                <!-- Connect Button -->
-                <Button Text="Connect"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Fill"
-                        HeightRequest="45"
-                        BackgroundColor="{StaticResource TailwindNeutral500}"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        CornerRadius="10"
-                        Clicked="OnConnectClicked"/>
-            </VerticalStackLayout>
-        </Frame>
-    </Grid>
+                    <!-- Connect Button -->
+                    <Button Text="Connect"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"
+                            HeightRequest="45"
+                            BackgroundColor="{StaticResource TailwindNeutral500}"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            CornerRadius="10"
+                            Clicked="OnConnectClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </ScrollView>
 </ContentPage>

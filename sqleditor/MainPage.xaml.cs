@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using CommunityToolkit.Maui.Storage; 
+using CommunityToolkit.Maui.Storage;
 using Microsoft.Maui.Controls;
 
 namespace sqleditor
@@ -10,6 +10,10 @@ namespace sqleditor
         private string _username;
         private string _password;
 
+        private string _filePathError;
+        private string _usernameError;
+        private string _passwordError;
+
         public string FilePath
         {
             get => _filePath;
@@ -18,7 +22,8 @@ namespace sqleditor
                 if (_filePath != value)
                 {
                     _filePath = value;
-                    OnPropertyChanged();
+                    ValidateFilePath();
+                    OnPropertyChanged(nameof(FilePath));
                 }
             }
         }
@@ -31,32 +36,78 @@ namespace sqleditor
                 if (_username != value)
                 {
                     _username = value;
-                    OnPropertyChanged();
+                    ValidateUsername();
+                    OnPropertyChanged(nameof(Username));
                 }
             }
         }
-
 
         public string Password
         {
             get => _password;
             set
             {
-                if (value != _password)
+                if (_password != value)
                 {
                     _password = value;
-                    OnPropertyChanged();
+                    ValidatePassword();
+                    OnPropertyChanged(nameof(Password));
                 }
             }
         }
 
+        public string FilePathError
+        {
+            get => _filePathError;
+            set
+            {
+                if (_filePathError != value)
+                {
+                    _filePathError = value;
+                    OnPropertyChanged(nameof(FilePathError));
+                    OnPropertyChanged(nameof(IsFilePathInvalid));
+                }
+            }
+        }
+
+        public string UsernameError
+        {
+            get => _usernameError;
+            set
+            {
+                if (_usernameError != value)
+                {
+                    _usernameError = value;
+                    OnPropertyChanged(nameof(UsernameError));
+                    OnPropertyChanged(nameof(IsUsernameInvalid));
+                }
+            }
+        }
+
+        public string PasswordError
+        {
+            get => _passwordError;
+            set
+            {
+                if (_passwordError != value)
+                {
+                    _passwordError = value;
+                    OnPropertyChanged(nameof(PasswordError));
+                    OnPropertyChanged(nameof(IsPasswordInvalid));
+                }
+            }
+        }
+
+        public bool IsFilePathInvalid => !string.IsNullOrEmpty(FilePathError);
+        public bool IsUsernameInvalid => !string.IsNullOrEmpty(UsernameError);
+        public bool IsPasswordInvalid => !string.IsNullOrEmpty(PasswordError);
 
         static Dictionary<DevicePlatform, IEnumerable<string>> customFileTypeDictionary = new()
-            {
-                { DevicePlatform.iOS, new[] { "public.database" } }, // UTType for SQLite on iOS
-                { DevicePlatform.Android, new[] { "application/x-sqlite3" } }, // MIME type for SQLite on Android
-                { DevicePlatform.WinUI, new[] { ".db", ".sqlite" } }, // File extensions for SQLite on Windows
-            };
+        {
+            { DevicePlatform.iOS, new[] { "public.database" } },
+            { DevicePlatform.Android, new[] { "application/x-sqlite3" } },
+            { DevicePlatform.WinUI, new[] { ".db", ".sqlite" } },
+        };
 
         static FilePickerFileType customFileType = new FilePickerFileType(customFileTypeDictionary);
 
@@ -64,7 +115,11 @@ namespace sqleditor
         {
             InitializeComponent();
             BindingContext = this;
+
+            // Initialize fields
             _filePath = string.Empty;
+            _username = string.Empty;
+            _password = string.Empty;
         }
 
         private async void OnBrowseClicked(object sender, EventArgs e)
@@ -79,25 +134,24 @@ namespace sqleditor
 
                 if (result != null)
                 {
-                   // FilePathEntry.Text = result.FullPath;
-                   FilePath = result.FullPath;
+                    FilePath = result.FullPath;
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions, such as permissions
-                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                FilePathError = $"Error: {ex.Message}";
             }
         }
 
-
         private async void OnConnectClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FilePath))
+            ValidateAllFields();
+
+            if (IsFilePathInvalid || IsUsernameInvalid || IsPasswordInvalid)
             {
-                await DisplayAlert("Error", "Please select a file first", "OK");
                 return;
             }
+
             try
             {
                 GlobalDatabase.OpenDatabase(FilePath, Username, Password);
@@ -105,8 +159,30 @@ namespace sqleditor
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                FilePathError = $"Error: {ex.Message}";
             }
+        }
+
+        private void ValidateFilePath()
+        {
+            FilePathError = string.IsNullOrWhiteSpace(FilePath) ? "File path cannot be empty." : string.Empty;
+        }
+
+        private void ValidateUsername()
+        {
+            UsernameError = string.IsNullOrWhiteSpace(Username) ? "Username cannot be empty." : string.Empty;
+        }
+
+        private void ValidatePassword()
+        {
+            PasswordError = string.IsNullOrWhiteSpace(Password) ? "Password cannot be empty." : string.Empty;
+        }
+
+        private void ValidateAllFields()
+        {
+            ValidateFilePath();
+            ValidateUsername();
+            ValidatePassword();
         }
     }
 }
