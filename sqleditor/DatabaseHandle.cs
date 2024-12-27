@@ -3,6 +3,40 @@ using System;
 
 namespace sqleditor
 {
+
+    public enum ColumnType
+    {
+        Text,
+        Integer,
+        Real,
+        Blob
+    }
+    public class ColumnHandle
+    {
+        public string ColumnName { get; set; }
+        public ColumnType ColumnType { get; set; }
+        public string ColumnValue { get; set; }
+
+        public ColumnHandle(string columnName, ColumnType columnType, string columnValue)
+        {
+            ColumnName = columnName;
+            ColumnType = columnType;
+            ColumnValue = columnValue;
+        }
+    }
+    public class TableHandle
+    {
+        public string TableName { get; set; }
+
+        public List<ColumnHandle> Columns { get; set; }
+
+        public TableHandle(string tableName)
+        {
+            TableName = tableName;
+            Columns = new List<ColumnHandle>();
+        }
+    }
+
     public static class GlobalDatabase
     {
         public static SqliteConnection? Connection { get; set; }
@@ -94,5 +128,124 @@ namespace sqleditor
 
             CheckCredentials(username, password);
         }
+
+        public static List<ColumnHandle> GetTableColumns(string tableName)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            var columns = new List<ColumnHandle>();
+
+            var command = Connection.CreateCommand();
+            command.CommandText = $"PRAGMA table_info({tableName});";
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var columnName = reader["name"].ToString() ?? string.Empty;
+                var columnType = reader["type"].ToString()?.ToLower() switch
+                {
+                    "text" => ColumnType.Text,
+                    "integer" => ColumnType.Integer,
+                    "real" => ColumnType.Real,
+                    "blob" => ColumnType.Blob,
+                    _ => throw new InvalidOperationException($"Unknown column type: {reader["type"]}")
+                };
+
+                columns.Add(new ColumnHandle(columnName, columnType, string.Empty)); // No value yet
+            }
+
+            return columns;
+        }
+
+        public static List<Dictionary<string, string>> GetTableData(string tableName)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            var data = new List<Dictionary<string, string>>();
+
+            var command = Connection.CreateCommand();
+            command.CommandText = $"SELECT * FROM {tableName};";
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var row = new Dictionary<string, string>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    var columnName = reader.GetName(i);
+                    var value = reader.IsDBNull(i) ? "NULL" : reader.GetValue(i)?.ToString();
+                    row.Add(columnName, value ?? string.Empty);
+                }
+                data.Add(row);
+            }
+
+            return data;
+        }
+
+        public static TableHandle GetTableInfo(string tableName)
+        {
+            var table = new TableHandle(tableName);
+
+            table.Columns = GetTableColumns(tableName);
+
+            var data = GetTableData(tableName);
+            foreach (var row in data)
+            {
+                foreach (var column in table.Columns)
+                {
+                    if (row.ContainsKey(column.ColumnName))
+                    {
+                        column.ColumnValue = row[column.ColumnName];
+                    }
+                }
+            }
+
+            return table;
+        }
+    
+
+    public static List<string> GetAllTables()
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            var tables = new List<string>();
+
+            var command = Connection.CreateCommand();
+            command.CommandText = @"
+        SELECT name 
+        FROM sqlite_master 
+        WHERE type='table' 
+        AND name NOT LIKE 'sqlite_%' -- Exclude system tables
+        ORDER BY name;";
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                tables.Add(reader.GetString(0)); // Add table name to the list
+            }
+
+            return tables;
+        }
+        public static List<TableHandle> GetAllTablesWithColumns()
+        {
+            var tables = GetAllTables();
+            var tablesWithColumns = new List<TableHandle>();
+            foreach (var column in tables)
+            {
+                tablesWithColumns.Add(GetTableInfo(column));
+            }
+
+            return tablesWithColumns;
+        }
     }
 }
+ 

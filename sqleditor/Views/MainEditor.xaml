@@ -17,37 +17,34 @@
                HasShadow="False"
                Padding="20"
                Margin="0,0,15,0">
-            <VerticalStackLayout Spacing="15">
-                <Label Text="Vertical Item 1" 
-                       BackgroundColor="LightGray"
-                       HeightRequest="40" />
-                <Label Text="Vertical Item 2" 
-                       BackgroundColor="LightGray"
-                       HeightRequest="40" />
-                <Label Text="Vertical Item 3" 
-                       BackgroundColor="LightGray"
-                       HeightRequest="40" />
-            </VerticalStackLayout>
+            <ListView x:Name="TablesListView"
+          ItemsSource="{Binding TableNames}"
+          SelectionMode="Single"
+          ItemSelected="OnTableSelected"
+          BackgroundColor="LightBlue">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding}" TextColor="White" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Frame>
 
         <!-- Top right box -->
         <Frame Grid.Column="1"
-               Grid.Row="0"
-               CornerRadius="10"
-               BackgroundColor="LightGreen"
-               HasShadow="False"
-               Padding="20"
-               Margin="15,0,0,15">
-            <HorizontalStackLayout Spacing="15">
-                <Label Text="Horizontal 1" 
-                       BackgroundColor="LightGray"
-                       WidthRequest="60" />
-                <Label Text="Horizontal 2" 
-                       BackgroundColor="LightGray"
-                       WidthRequest="60" />
-                <Label Text="Horizontal 3" 
-                       BackgroundColor="LightGray"
-                       WidthRequest="60" />
+       Grid.Row="0"
+       CornerRadius="10"
+       BackgroundColor="LightGreen"
+       HasShadow="False"
+       Padding="10"
+       Margin="15,0,0,15">
+            <HorizontalStackLayout Spacing="15" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="{Binding ActiveTableName}"
+               FontSize="18"
+               FontAttributes="Bold"
+               TextColor="Black"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
             </HorizontalStackLayout>
         </Frame>
 
