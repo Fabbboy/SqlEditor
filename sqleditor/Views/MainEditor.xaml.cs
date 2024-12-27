@@ -36,6 +36,7 @@ namespace sqleditor.Views
             InitializeComponent();
 
             TableNames = new ObservableCollection<string>();
+            tableHandles = new List<TableHandle>();
             BindingContext = this;
 
             LoadTables();
