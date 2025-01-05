@@ -54,7 +54,7 @@ namespace sqleditor.Views
             }
         }
 
-        private async void OnTableSelected(object sender, SelectedItemChangedEventArgs e)
+        private void OnTableSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is string tableName)
             {

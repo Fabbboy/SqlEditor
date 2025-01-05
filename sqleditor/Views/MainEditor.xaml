@@ -10,69 +10,204 @@
         <!-- Adjusted row proportions -->
 
         <!-- Left big box -->
+        <!-- Left Explorer Frame -->
+        <!-- Left Explorer Frame -->
         <Frame Grid.Column="0"
-               Grid.RowSpan="3"
-               CornerRadius="10"
-               BackgroundColor="LightBlue"
-               HasShadow="False"
-               Padding="20"
-               Margin="0,0,15,0">
-            <ListView x:Name="TablesListView"
-          ItemsSource="{Binding TableNames}"
-          SelectionMode="Single"
-          ItemSelected="OnTableSelected"
-          BackgroundColor="LightBlue">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding}" TextColor="White" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+       Grid.RowSpan="3"
+       CornerRadius="10"
+       BackgroundColor="{StaticResource TailwindNeutral800}"
+       HasShadow="False"
+       Padding="20"
+       Margin="0,0,15,0">
+            <Grid RowDefinitions="Auto,Auto,Auto,*">
+                <!-- Header -->
+                <VerticalStackLayout Grid.Row="0" Spacing="4" Margin="0,0,0,20">
+                    <Label Text="Explorer"
+                   TextColor="{StaticResource TailwindNeutral100}"
+                   FontSize="24"
+                   FontAttributes="Bold"/>
+                    <Label Text="Tables"
+                   TextColor="{StaticResource TailwindNeutral400}"
+                   FontSize="14"/>
+                </VerticalStackLayout>
+
+                <!-- Buttons -->
+                <HorizontalStackLayout Grid.Row="1" Spacing="8" Margin="0,0,0,16">
+                    <Button BackgroundColor="{StaticResource TailwindNeutral700}"
+                    TextColor="{StaticResource TailwindNeutral200}"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="8">
+                        <Button.ImageSource>
+                            <FileImageSource File="placeholder.png"/>
+                        </Button.ImageSource>
+                    </Button>
+                    <Button BackgroundColor="{StaticResource TailwindNeutral700}"
+                    TextColor="{StaticResource TailwindNeutral200}"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="8">
+                        <Button.ImageSource>
+                            <FileImageSource File="placeholder.png"/>
+                        </Button.ImageSource>
+                    </Button>
+                    <Button BackgroundColor="{StaticResource TailwindNeutral700}"
+                        TextColor="{StaticResource TailwindNeutral200}"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        CornerRadius="8">
+                        <Button.ImageSource>
+                            <FileImageSource File="placeholder.png"/>
+                        </Button.ImageSource>
+                    </Button>
+                </HorizontalStackLayout>
+
+                <!-- Separator -->
+                <BoxView Grid.Row="2" 
+                 HeightRequest="1"
+                 Color="{StaticResource TailwindNeutral700}"
+                 Margin="0,0,0,16"/>
+
+                <!-- Tables List -->
+                <ListView Grid.Row="3"
+                  x:Name="TablesListView"
+                  ItemsSource="{Binding TableNames}"
+                  SelectionMode="Single"
+                  ItemSelected="OnTableSelected"
+                  BackgroundColor="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding}"
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               Padding="8"
+                               FontSize="14"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
         </Frame>
 
+        <!-- Top right box -->
         <!-- Top right box -->
         <Frame Grid.Column="1"
        Grid.Row="0"
        CornerRadius="10"
-       BackgroundColor="LightGreen"
+       BackgroundColor="{StaticResource TailwindNeutral800}"
        HasShadow="False"
-       Padding="10"
+       Padding="8"
        Margin="15,0,0,15">
-            <HorizontalStackLayout Spacing="15" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="{Binding ActiveTableName}"
-               FontSize="18"
-               FontAttributes="Bold"
-               TextColor="Black"
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <!-- Table Name -->
+                <Label Grid.Column="0"
+               Text="{Binding ActiveTableName}"
+               FontSize="16"
+               TextColor="{StaticResource TailwindNeutral100}"
                VerticalOptions="Center"
-               HorizontalOptions="Center" />
-            </HorizontalStackLayout>
+               Margin="0,0,16,0"/>
+
+                <!-- Add Button -->
+                <Button Grid.Column="2"
+                BackgroundColor="{StaticResource TailwindNeutral700}"
+                TextColor="{StaticResource TailwindNeutral200}"
+                WidthRequest="36"
+                HeightRequest="36"
+                CornerRadius="6"
+                Margin="0,0,8,0"
+               >
+                    <Button.ImageSource>
+                        <FileImageSource File="placeholder.png"/>
+                    </Button.ImageSource>
+                </Button>
+
+                <!-- Delete Button -->
+                <Button Grid.Column="3"
+                BackgroundColor="{StaticResource TailwindNeutral700}"
+                TextColor="{StaticResource TailwindNeutral200}"
+                WidthRequest="36"
+                HeightRequest="36"
+                CornerRadius="6"
+               >
+                    <Button.ImageSource>
+                        <FileImageSource File="placeholder.png"/>
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
         </Frame>
 
         <!-- Bottom right box -->
         <Frame Grid.Column="1"
-               Grid.Row="1"
-               Grid.RowSpan="2"
-               CornerRadius="10"
-               BackgroundColor="LightCoral"
-               HasShadow="False"
-               Padding="20"
-               Margin="15,15,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Text="Diagonal Layout" 
-                       HorizontalOptions="Start"
-                       VerticalOptions="Start"
-                       Margin="0,0,15,15"
-                       BackgroundColor="LightGray" />
-                <Label Text="End Item"
-                       HorizontalOptions="End"
-                       VerticalOptions="End"
-                       BackgroundColor="LightGray" />
+       Grid.Row="1"
+       Grid.RowSpan="2"
+       CornerRadius="10"
+       BackgroundColor="{StaticResource TailwindNeutral800}"
+       HasShadow="False"
+       Padding="12"
+       Margin="15,15,0,0">
+            <Grid RowDefinitions="Auto,*">
+                <!-- Toggle Switch -->
+                <Grid Grid.Row="0" 
+              ColumnDefinitions="*,*" 
+              HeightRequest="40"
+              Margin="0,0,0,8">
+                    <Button Grid.Column="0"
+                    Text="Structure"
+                    BackgroundColor="{StaticResource TailwindNeutral700}"
+                    TextColor="{StaticResource TailwindNeutral200}"
+                    FontSize="12"
+                    CornerRadius="6"
+                    Margin="0,0,4,0"/>
+                    <Button Grid.Column="1"
+                    Text="Data"
+                    BackgroundColor="{StaticResource TailwindNeutral900}"
+                    TextColor="{StaticResource TailwindNeutral400}"
+                    FontSize="12"
+                    CornerRadius="6"
+                    Margin="4,0,0,0"/>
+                </Grid>
+
+                <!-- Table with mock data -->
+                <ScrollView Grid.Row="1">
+                    <Grid RowDefinitions="Auto,*">
+                        <!-- Table Header -->
+                        <Grid Grid.Row="0" 
+                      ColumnDefinitions="*,*,*,*,*"
+                      BackgroundColor="{StaticResource TailwindNeutral700}"
+                      Padding="8">
+                            <Label Grid.Column="0" Text="ID" TextColor="{StaticResource TailwindNeutral200}" FontSize="12"/>
+                            <Label Grid.Column="1" Text="Name" TextColor="{StaticResource TailwindNeutral200}" FontSize="12"/>
+                            <Label Grid.Column="2" Text="Type" TextColor="{StaticResource TailwindNeutral200}" FontSize="12"/>
+                            <Label Grid.Column="3" Text="Nullable" TextColor="{StaticResource TailwindNeutral200}" FontSize="12"/>
+                            <Label Grid.Column="4" Text="Key" TextColor="{StaticResource TailwindNeutral200}" FontSize="12"/>
+                        </Grid>
+
+                        <!-- Table Content -->
+                        <CollectionView Grid.Row="1" 
+                              x:Name="DataTable">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,*,*,*,*"
+                                  Padding="8"
+                                  BackgroundColor="{StaticResource TailwindNeutral800}">
+                                        <Label Grid.Column="0" Text="{Binding Id}" TextColor="{StaticResource TailwindNeutral300}" FontSize="12"/>
+                                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource TailwindNeutral300}" FontSize="12"/>
+                                        <Label Grid.Column="2" Text="{Binding Type}" TextColor="{StaticResource TailwindNeutral300}" FontSize="12"/>
+                                        <Label Grid.Column="3" Text="{Binding Nullable}" TextColor="{StaticResource TailwindNeutral300}" FontSize="12"/>
+                                        <Label Grid.Column="4" Text="{Binding Key}" TextColor="{StaticResource TailwindNeutral300}" FontSize="12"/>
+                                        <Grid.Triggers>
+                                            <DataTrigger TargetType="Grid"
+                                               Binding="{Binding IsAlternating}"
+                                               Value="True">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource TailwindNeutral700}" />
+                                            </DataTrigger>
+                                        </Grid.Triggers>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </ScrollView>
             </Grid>
         </Frame>
     </Grid>
