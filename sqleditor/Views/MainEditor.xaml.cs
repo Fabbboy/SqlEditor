@@ -44,16 +44,13 @@ namespace sqleditor.Views
 
         private void LoadTables()
         {
-            // Clear existing data to prevent duplicates
             tableHandles.Clear();
             TableNames.Clear();
 
-            // Fetch updated table list
             tableHandles = GlobalDatabase.GetAllTablesWithColumns();
 
             Console.WriteLine("Num: " + tableHandles.Count);
 
-            // Populate the ObservableCollection with table names
             foreach (var tableHandle in tableHandles)
             {
                 TableNames.Add(tableHandle.TableName);
