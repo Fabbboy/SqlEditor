@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using MauiIcons.Material;
 
 namespace sqleditor
 {
@@ -11,6 +12,7 @@ namespace sqleditor
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit() 
+                .UseMaterialMauiIcons()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
