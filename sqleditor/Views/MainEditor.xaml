@@ -6,7 +6,7 @@
              xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons">
     
     <!-- This would've been done quicker with Tauri/Electron and ReactJS -->
-
+ 
     <Grid Padding="30"
           ColumnDefinitions="1*, 2*"
           RowDefinitions="0.5*, 1.5*, 2*">
@@ -36,7 +36,9 @@
                     BackgroundColor="{StaticResource TailwindNeutral700}"
                     WidthRequest="40"
                     HeightRequest="40"
+                    Clicked="OnLogout"
                     CornerRadius="8" />
+
 
                     <ImageButton
                     Source="{mi:Material Icon=Terminal, IconSize=24}"
@@ -49,6 +51,19 @@
                     BackgroundColor="{StaticResource TailwindNeutral700}"
                     WidthRequest="40"
                     HeightRequest="40"
+                    CornerRadius="8" />
+                    <ImageButton
+                    Source="{mi:Material Icon=Add, IconSize=24}"
+                    BackgroundColor="{StaticResource TailwindNeutral700}"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="8" />
+                    <ImageButton
+                    Source="{mi:Material Icon=Refresh, IconSize=24}"
+                    BackgroundColor="{StaticResource TailwindNeutral700}"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Clicked="RefreshPressed"
                     CornerRadius="8" />
                 </HorizontalStackLayout>
 
@@ -115,6 +130,7 @@
                 WidthRequest="36"
                 HeightRequest="36"
                 CornerRadius="6"
+                Clicked="DeleteTable"
                >
                 </ImageButton>
             </Grid>

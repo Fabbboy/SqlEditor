@@ -246,6 +246,33 @@ namespace sqleditor
 
             return tablesWithColumns;
         }
+        public static void DeleteTable(TableHandle tableHandle)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            if (tableHandle == null || string.IsNullOrWhiteSpace(tableHandle.TableName))
+            {
+                throw new ArgumentException("Invalid table handle or table name.");
+            }
+
+            var command = Connection.CreateCommand();
+            command.CommandText = $"DROP TABLE IF EXISTS {tableHandle.TableName};";
+
+            try
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine($"Table '{tableHandle.TableName}' deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting table '{tableHandle.TableName}': {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }
  
