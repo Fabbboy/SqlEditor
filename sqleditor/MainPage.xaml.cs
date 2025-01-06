@@ -184,5 +184,14 @@ namespace sqleditor
             ValidateUsername();
             ValidatePassword();
         }
+
+        private void OnFAQTapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnImprintTapped(object sender, EventArgs e)
+        {
+        }
     }
 }

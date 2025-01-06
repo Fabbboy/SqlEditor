@@ -99,6 +99,28 @@
                             FontAttributes="Bold"
                             CornerRadius="10"
                             Clicked="OnConnectClicked"/>
+
+                    <!-- Imprint and FAQ Links -->
+                    <Grid ColumnDefinitions="*,*" Margin="0,20,0,0">
+                        <Label Grid.Column="0"
+                               Text="Imprint"
+                               TextColor="{StaticResource TailwindNeutral400}"
+                               FontSize="14"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnImprintTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Grid.Column="1"
+                               Text="FAQ"
+                               TextColor="{StaticResource TailwindNeutral400}"
+                               FontSize="14"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFAQTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
         </Grid>
