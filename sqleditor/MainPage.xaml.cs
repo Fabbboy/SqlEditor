@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using CommunityToolkit.Maui.Storage;
-using Microsoft.Maui.Controls;
 using sqleditor.Views;
 
 namespace sqleditor
@@ -193,8 +191,9 @@ namespace sqleditor
             await Navigation.PushAsync(new FAQPage());
         }
 
-        private void OnImprintTapped(object sender, EventArgs e)
+        private async void OnImprintTapped(object sender, EventArgs e)
         {
+            await Navigation.PushAsync(new Imprint());
         }
     }
 }

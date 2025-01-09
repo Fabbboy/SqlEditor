@@ -20,4 +20,9 @@
         Route="FAQ"
         />
 
+    <ShellContent 
+        ContentTemplate="{DataTemplate local:Views.Imprint}"
+        Route="Imprint"
+        />
+
 </Shell>
