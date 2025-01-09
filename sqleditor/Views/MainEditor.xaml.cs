@@ -71,7 +71,8 @@ namespace sqleditor.Views
         {
             Debug.WriteLine("Logout button pressed");
             GlobalDatabase.Connection?.Close();
-            await Shell.Current.GoToAsync("///MainPage");
+            await Navigation.PopAsync();
+            //await Shell.Current.GoToAsync("///MainPage");
         }
 
         private void RefreshPressed(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using CommunityToolkit.Maui.Storage;
 using Microsoft.Maui.Controls;
+using sqleditor.Views;
 
 namespace sqleditor
 {
@@ -155,7 +156,8 @@ namespace sqleditor
             try
             {
                 GlobalDatabase.OpenDatabase(FilePath, Username, Password);
-                await Shell.Current.GoToAsync("///Editor");
+               // await Shell.Current.GoToAsync("///Editor");
+               await Navigation.PushAsync(new MainEditor());
             }
             catch (Exception ex)
             {
@@ -185,9 +187,10 @@ namespace sqleditor
             ValidatePassword();
         }
 
-        private void OnFAQTapped(object sender, EventArgs e)
+        private async void OnFAQTapped(object sender, EventArgs e)
         {
-
+            //  await Shell.Current.GoToAsync("///FAQ");
+            await Navigation.PushAsync(new FAQPage());
         }
 
         private void OnImprintTapped(object sender, EventArgs e)

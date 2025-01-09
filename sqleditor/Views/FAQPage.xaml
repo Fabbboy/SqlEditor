@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="sqleditor.Views.FAQPage"
+             BackgroundColor="{StaticResource TailwindNeutral900}"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons">
+
+    <Grid Padding="30"
+          RowDefinitions="Auto,*">
+
+        <!-- Header and Back Button -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+            <ImageButton
+                Grid.Column="0"
+                Source="{mi:Material Icon=ArrowBack, IconSize=24}"
+                BackgroundColor="{StaticResource TailwindNeutral700}"
+                WidthRequest="40"
+                HeightRequest="40"
+                Clicked="OnBackButtonClicked"
+                CornerRadius="8"
+                Margin="0,0,16,0" />
+
+            <Label Grid.Column="1"
+                   Text="FAQ"
+                   TextColor="{StaticResource TailwindNeutral100}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- FAQ Content -->
+        <Frame Grid.Row="1"
+               CornerRadius="10"
+               BackgroundColor="{StaticResource TailwindNeutral800}"
+               HasShadow="False"
+               Padding="20">
+            <ScrollView>
+                <StackLayout Spacing="20">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="How do I connect to a database?"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <Label Text="To connect to a database, go to the main page and click on the 'Connect' button. Enter your database credentials in the provided fields and click 'Connect'."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="14" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="How can I execute a SQL query?"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <Label Text="To execute a SQL query, type your query in the main editor area and click the 'Execute' button. The results will be displayed in the bottom panel."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="14" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Can I save my queries?"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <Label Text="Yes, you can save your queries. Click on the 'Save' button in the toolbar to save your current query. You can access saved queries from the 'Saved Queries' section in the sidebar."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="14" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="How do I refresh the table list?"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <Label Text="To refresh the table list, click on the 'Refresh' button (circular arrow icon) in the sidebar. This will update the list of tables for the current database connection."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="14" />
+                    </VerticalStackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+    </Grid>
+</ContentPage>
