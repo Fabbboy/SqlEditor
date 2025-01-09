@@ -272,6 +272,43 @@ namespace sqleditor
                 throw;
             }
         }
+        public static List<ColumnHandle> SelectColumnHandles(string tableName)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            var columnHandles = new List<ColumnHandle>();
+
+            var command = Connection.CreateCommand();
+            command.CommandText = $"SELECT * FROM {tableName} LIMIT 1;";
+
+            using var reader = command.ExecuteReader();
+            var schemaTable = reader.GetSchemaTable();
+
+            if (schemaTable != null)
+            {
+                foreach (System.Data.DataRow row in schemaTable.Rows)
+                {
+                    string columnName = row["ColumnName"].ToString() ?? string.Empty;
+                    string dataTypeName = row["DataTypeName"].ToString()?.ToLower() ?? string.Empty;
+
+                    ColumnType columnType = dataTypeName switch
+                    {
+                        "text" => ColumnType.Text,
+                        "integer" => ColumnType.Integer,
+                        "real" => ColumnType.Real,
+                        "blob" => ColumnType.Blob,
+                        _ => ColumnType.Text // Default to Text for unknown types
+                    };
+
+                    columnHandles.Add(new ColumnHandle(columnName, columnType, string.Empty));
+                }
+            }
+
+            return columnHandles;
+        }
 
     }
 }

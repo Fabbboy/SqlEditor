@@ -135,7 +135,6 @@
                 </ImageButton>
             </Grid>
         </Frame>
-
         <!-- Bottom right box -->
         <Frame Grid.Column="1"
        Grid.Row="1"
@@ -143,9 +142,32 @@
        CornerRadius="10"
        BackgroundColor="{StaticResource TailwindNeutral800}"
        HasShadow="False"
-       Padding="12"
+       Padding="0"
        Margin="15,15,0,0">
-           
+
+            <Grid RowDefinitions="Auto,*">
+                <!-- Dynamic Header Row -->
+                <ScrollView Grid.Row="0" Orientation="Horizontal">
+                    <HorizontalStackLayout x:Name="HeaderStack"
+                                 BackgroundColor="{StaticResource TailwindNeutral700}"
+                                 Padding="12,8"/>
+                </ScrollView>
+
+                <!-- Dynamic Data Rows -->
+                <ScrollView Grid.Row="1">
+                    <CollectionView x:Name="DataCollection"
+                          ItemsSource="{Binding TableData}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ScrollView Orientation="Horizontal">
+                                    <HorizontalStackLayout x:Name="DataStack" 
+                                                 Padding="12,8"/>
+                                </ScrollView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
         </Frame>
     </Grid>
 </ContentPage>
