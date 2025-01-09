@@ -4,4 +4,109 @@
              x:Class="sqleditor.Views.Imprint"
              BackgroundColor="{StaticResource TailwindNeutral900}"
              xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons">
+
+    <Grid Padding="30"
+          RowDefinitions="Auto,*">
+
+        <!-- Header and Back Button -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+            <ImageButton
+                Grid.Column="0"
+                Source="{mi:Material Icon=ArrowBack, IconSize=24}"
+                BackgroundColor="{StaticResource TailwindNeutral700}"
+                WidthRequest="40"
+                HeightRequest="40"
+                Clicked="OnBackButtonClicked"
+                CornerRadius="8"
+                Margin="0,0,16,0" />
+
+            <Label Grid.Column="1"
+                   Text="Impressum"
+                   TextColor="{StaticResource TailwindNeutral100}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <Frame Grid.Row="1"
+               CornerRadius="10"
+               BackgroundColor="{StaticResource TailwindNeutral800}"
+               HasShadow="False"
+               Padding="20">
+            <ScrollView>
+                <StackLayout Spacing="24">
+                    <!-- Verantwortlich Section -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Verantwortlich"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label Text="Fabrice Schaub"
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16" />
+                        <Label Text="fsc146250@stud.gibb.ch"
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16" />
+                    </VerticalStackLayout>
+
+                    <!-- Projektinformationen Section -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Projektinformationen"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Titel: SQL-Editor Projekt M322 Portfolio&#x0a;" />
+                                    <Span Text="Version: V1.0&#x0a;" />
+                                    <Span Text="Erstellungsdatum: 07.11.2024" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Haftungsausschluss Section -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Haftungsausschluss"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label Text="Dies ist ein nicht-kommerzielles Projekt, das im Rahmen des Moduls M322 der Ausbildung zum Informatiker (INF2023F) erstellt wurde. Der Inhalt wurde sorgfaeltig erarbeitet, jedoch wird keine Haftung fuer die Richtigkeit, Vollstaendigkeit oder Aktualitaet uebernommen."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16"/>
+                    </VerticalStackLayout>
+
+                    <!-- Urheberrecht Section -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Urheberrecht"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label Text="Alle im Rahmen dieses Projekts erstellten Inhalte, Grafiken und Texte sind urheberrechtlich geschuetzt. Jegliche Vervielfaeltigung, Verbreitung oder sonstige Nutzung ausserhalb des Bildungskontextes bedarf der schriftlichen Genehmigung des Autors."
+                               TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16" />
+                    </VerticalStackLayout>
+
+                    <!-- Kontakt Section -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Kontakt"
+                               TextColor="{StaticResource TailwindNeutral100}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label TextColor="{StaticResource TailwindNeutral300}"
+                               FontSize="16">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Fabrice Schaub&#x0a;" />
+                                    <Span Text="Lorrainstrasse 1" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+    </Grid>
 </ContentPage>
