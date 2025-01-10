@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="sqleditor.Views.AddTableModal"
+             BackgroundColor="{StaticResource TailwindNeutral900}"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label Text="Create New Table" 
+                   TextColor="{StaticResource TailwindNeutral100}" 
+                   FontSize="24" 
+                   FontAttributes="Bold"/>
+
+            <Entry x:Name="TableNameEntry" 
+                   Placeholder="Table Name" 
+                   PlaceholderColor="{StaticResource TailwindNeutral400}"
+                   TextColor="{StaticResource TailwindNeutral100}"
+                   BackgroundColor="{StaticResource TailwindNeutral800}"/>
+
+            <CollectionView x:Name="ColumnsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, *, Auto" Padding="0,5">
+                            <Entry Text="{Binding ColumnName}" 
+                                   Placeholder="Column Name"
+                                   TextColor="{StaticResource TailwindNeutral100}"
+                                   BackgroundColor="{StaticResource TailwindNeutral800}"
+                                   Grid.Column="0"/>
+                            <Picker ItemsSource="{Binding ColumnTypes}"
+                                    SelectedItem="{Binding SelectedColumnType}"
+                                    TextColor="{StaticResource TailwindNeutral100}"
+                                    BackgroundColor="{StaticResource TailwindNeutral800}"
+                                    Grid.Column="1"/>
+                            <ImageButton Source="{mi:Material Icon=Delete, IconSize=24}"
+                                         BackgroundColor="{StaticResource TailwindNeutral700}"
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=DeleteColumnCommand}"
+                                         CommandParameter="{Binding .}"
+                                         WidthRequest="40"
+                                         HeightRequest="40"
+                                         Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Add Column" 
+                    Command="{Binding AddColumnCommand}"
+                    BackgroundColor="{StaticResource TailwindNeutral700}"
+                    TextColor="{StaticResource TailwindNeutral100}"/>
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Create" 
+                        Clicked="OnCreateClicked"
+                        BackgroundColor="{StaticResource TailwindNeutral700}"
+                        TextColor="{StaticResource TailwindNeutral100}"/>
+                <Button Text="Cancel" 
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="{StaticResource TailwindNeutral700}"
+                        TextColor="{StaticResource TailwindNeutral100}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

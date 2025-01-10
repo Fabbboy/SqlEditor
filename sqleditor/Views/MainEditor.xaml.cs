@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Microsoft.Maui.Controls;
 
 namespace sqleditor.Views
 {
@@ -42,6 +41,11 @@ namespace sqleditor.Views
             BindingContext = this;
 
             LoadTables();
+
+            MessagingCenter.Subscribe<AddTableModal, TableHandle>(this, "TableCreated", (sender, tableHandle) =>
+        {
+            CreateDatabaseTable(tableHandle);
+        });
         }
 
         private void LoadTables()
@@ -159,6 +163,27 @@ namespace sqleditor.Views
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async void OnAddTableClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddTableModal());
+        }
+
+        private void CreateDatabaseTable(TableHandle tableHandle)
+        {
+            try
+            {
+                GlobalDatabase.CreateTable(tableHandle);
+                tableHandles.Add(tableHandle);
+                TableNames.Add(tableHandle.TableName);
+                ActiveTableHandle = tableHandle;
+                LoadTables(); // Refresh the table list
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Error", $"Failed to create table: {ex.Message}", "OK");
             }
         }
     }

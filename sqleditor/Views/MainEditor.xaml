@@ -56,6 +56,7 @@
                     Source="{mi:Material Icon=Add, IconSize=24}"
                     BackgroundColor="{StaticResource TailwindNeutral700}"
                     WidthRequest="40"
+                    Clicked="OnAddTableClicked"
                     HeightRequest="40"
                     CornerRadius="8" />
                     <ImageButton

@@ -309,6 +309,59 @@ namespace sqleditor
 
             return columnHandles;
         }
+        public static void CreateTable(TableHandle tableHandle)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
+
+            if (tableHandle == null || string.IsNullOrWhiteSpace(tableHandle.TableName))
+            {
+                throw new ArgumentException("Invalid table handle or table name.");
+            }
+
+            if (tableHandle.Columns == null || tableHandle.Columns.Count == 0)
+            {
+                throw new ArgumentException("Table must have at least one column.");
+            }
+
+            var columnDefinitions = new List<string>();
+
+            foreach (var column in tableHandle.Columns)
+            {
+                string columnType = column.ColumnType switch
+                {
+                    ColumnType.Text => "TEXT",
+                    ColumnType.Integer => "INTEGER",
+                    ColumnType.Real => "REAL",
+                    ColumnType.Blob => "BLOB",
+                    _ => throw new InvalidOperationException($"Unsupported column type: {column.ColumnType}")
+                };
+
+                columnDefinitions.Add($"{column.ColumnName} {columnType}");
+            }
+
+            var createTableQuery = $@"
+        CREATE TABLE IF NOT EXISTS {tableHandle.TableName} (
+            {string.Join(", ", columnDefinitions)}
+        );";
+
+            using var command = Connection.CreateCommand();
+            command.CommandText = createTableQuery;
+
+            try
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine($"Table '{tableHandle.TableName}' created successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating table '{tableHandle.TableName}': {ex.Message}");
+                throw;
+            }
+        }
+
 
     }
 }
