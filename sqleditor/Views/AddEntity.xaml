@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="sqleditor.Views.AddEntity"
+             BackgroundColor="{StaticResource TailwindNeutral900}"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label Text="Add New Entity" 
+                   TextColor="{StaticResource TailwindNeutral100}" 
+                   FontSize="24" 
+                   FontAttributes="Bold"/>
+
+            <CollectionView x:Name="FieldsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, *" Padding="0,5">
+                            <Label Text="{Binding ColumnName}" 
+                                   TextColor="{StaticResource TailwindNeutral100}"
+                                   VerticalOptions="Center"
+                                   Grid.Column="0"/>
+                            <Entry Text="{Binding ColumnValue}" 
+                                   Placeholder="Enter value"
+                                   TextColor="{StaticResource TailwindNeutral100}"
+                                   BackgroundColor="{StaticResource TailwindNeutral800}"
+                                   Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Add" 
+                        Clicked="OnAddClicked"
+                        BackgroundColor="{StaticResource TailwindNeutral700}"
+                        TextColor="{StaticResource TailwindNeutral100}"/>
+                <Button Text="Cancel" 
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="{StaticResource TailwindNeutral700}"
+                        TextColor="{StaticResource TailwindNeutral100}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -114,15 +114,16 @@
                Margin="0,0,16,0"/>
 
                 <!-- Add Button -->
+                <!-- Add Button -->
                 <ImageButton
-                Grid.Column="2"
-                BackgroundColor="{StaticResource TailwindNeutral700}"
-                Source="{mi:Material Icon=Add, IconSize=24}"
-                WidthRequest="36"
-                HeightRequest="36"
-                CornerRadius="6"
-                Margin="0,0,8,0"
-               ></ImageButton>
+    Grid.Column="2"
+    BackgroundColor="{StaticResource TailwindNeutral700}"
+    Source="{mi:Material Icon=Add, IconSize=24}"
+    WidthRequest="36"
+    HeightRequest="36"
+    CornerRadius="6"
+    Margin="0,0,8,0"
+    Clicked="OnAddEntityClicked"/>
 
                 <!-- Delete Button -->
                 <ImageButton Grid.Column="3"

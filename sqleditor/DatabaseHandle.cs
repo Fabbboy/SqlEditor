@@ -362,7 +362,34 @@ namespace sqleditor
             }
         }
 
+        public static void ExecuteNonQuery(string query, Dictionary<string, object> parameters = null)
+        {
+            if (Connection == null)
+            {
+                throw new InvalidOperationException("Database connection is not initialized.");
+            }
 
+            using var command = Connection.CreateCommand();
+            command.CommandText = query;
+
+            if (parameters != null)
+            {
+                foreach (var param in parameters)
+                {
+                    command.Parameters.AddWithValue(param.Key, param.Value);
+                }
+            }
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
  

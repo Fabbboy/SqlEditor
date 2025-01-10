@@ -186,5 +186,17 @@ namespace sqleditor.Views
                 DisplayAlert("Error", $"Failed to create table: {ex.Message}", "OK");
             }
         }
+
+        private async void OnAddEntityClicked(object sender, EventArgs e)
+        {
+            if (ActiveTableHandle != null)
+            {
+                await Navigation.PushModalAsync(new AddEntity(ActiveTableHandle));
+            }
+            else
+            {
+                await DisplayAlert("Error", "No table selected", "OK");
+            }
+        }
     }
 }
